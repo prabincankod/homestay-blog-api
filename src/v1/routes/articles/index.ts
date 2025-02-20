@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import e, { Request, Response, Router } from "express";
 import { CreateArticle } from "../../../dtos/CreateArticle";
 import { prismaClient } from "../../../../prisma/prisma";
 
@@ -25,6 +25,7 @@ articlesRouter.post("/", async (req: Request, res: Response) => {
         .json({ success: false, message: "check the request body" });
     }
   } catch (error) {
+    console.log(error);
     res.status(500).json({ success: false, message: "something went wrong" });
   }
 });

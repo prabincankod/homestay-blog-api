@@ -5,13 +5,22 @@ export const homePageRouter = Router();
 
 homePageRouter.get("/", async (req: Request, res: Response) => {
   const featuredPosts = await prismaClient.article.findMany({
-    where: { isFeatured: true },
+    where: { isFeatured: true, status: "Published" },
+    omit: { content: true, imageId: true },
+    include: { ogImage: true },
+  });
+
+  const featuredCatrgories = await prismaClient.category.findMany({
+    where: {
+      isFeatured: true,
+    },
   });
 
   res.json({
     success: true,
     data: {
       posts: featuredPosts,
+      categories: featuredCatrgories,
     },
   });
 });

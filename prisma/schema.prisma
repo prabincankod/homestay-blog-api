@@ -22,13 +22,17 @@ enum Statuses {
 model Article {
   id          Int      @id @default(autoincrement())
   title       String
-  slug        String @unique
+  slug        String   @unique
   description String?
   isFeatured  Boolean  @default(false)
   status      Statuses @default(Idea)
 
+  content String? @db.Text()
+
   ogImage Image? @relation(fields: [imageId], references: [id])
   imageId Int?
+
+  categories Category[]
 }
 
 model Image {
@@ -37,4 +41,13 @@ model Image {
   url String
 
   Article Article[]
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  isFeatured Boolean @default(false)
+
+  articles Article[]
 }
