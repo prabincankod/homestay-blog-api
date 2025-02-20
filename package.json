@@ -4,6 +4,7 @@
   "description": "for The StartUp TM.",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "postinstall": "prisma generate",
     "build": "tsc"
   },
   "keywords": [],
