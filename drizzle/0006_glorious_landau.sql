@@ -1,1 +1,0 @@
-ALTER TABLE "article" ALTER COLUMN "content" SET DEFAULT 'Hello World';

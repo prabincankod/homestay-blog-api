@@ -1,27 +1,17 @@
 import { type Request, type Response, Router } from "express";
-import { db } from "../../../db";
-import { article } from "../../../db/schema";
-import { eq } from "drizzle-orm";
+import { prismaClient } from "../../../../prisma/prisma";
 
-export const homePageRouter = Router()
+export const homePageRouter = Router();
 
+homePageRouter.get("/", async (req: Request, res: Response) => {
+  const featuredPosts = await prismaClient.article.findMany({
+    where: { isFeatured: true },
+  });
 
-homePageRouter.get('/', async (req: Request, res: Response) => {
-    const featuredPosts = await db.select().from(article).where(eq(article.is_featured, true));
-
-
-    res.json({
-        success: true,
-        data: {
-            posts: featuredPosts
-
-        }
-    })
-
-
-
-
-
-
-
-})
+  res.json({
+    success: true,
+    data: {
+      posts: featuredPosts,
+    },
+  });
+});

@@ -1,1 +1,0 @@
-ALTER TABLE "article" ADD COLUMN "status" "Article_Status";

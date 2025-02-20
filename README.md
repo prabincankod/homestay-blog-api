@@ -1,2 +1,3 @@
 # homestay-api
- > for efficient homestay bloging.
+
+> for efficient homestay bloging.
