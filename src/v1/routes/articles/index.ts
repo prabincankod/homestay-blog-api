@@ -31,6 +31,7 @@ articlesRouter.get("/:slug", async (req: Request, res: Response) => {
     where: {
       slug: slug,
     },
+    include: { ogImage: true }
   });
 
   if (!article) {
