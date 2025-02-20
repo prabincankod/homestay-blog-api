@@ -41,6 +41,8 @@ model Image {
   url String
 
   Article Article[]
+
+  Category Category[]
 }
 
 model Category {
@@ -48,6 +50,9 @@ model Category {
   name String
 
   isFeatured Boolean @default(false)
+
+  image   Image? @relation(fields: [imageid], references: [id])
+  imageid Int?
 
   articles Article[]
 }
