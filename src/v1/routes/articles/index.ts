@@ -40,3 +40,27 @@ articlesRouter.get("/:slug", async (req: Request, res: Response) => {
 
   res.status(200).json({ success: true, data: article });
 });
+
+
+articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
+  const content = req.body.content;
+  const slug = req.params.slug;
+  const article = await prismaClient.article.findUnique({
+    where: {
+      slug: slug,
+    },
+    include: { ogImage: true }
+  });
+
+  if (!article) {
+    res.status(404).json({ success: false, message: "not found" });
+  }
+
+  await prismaClient.article.update({where:{
+    id: article?.id
+  }, data:{
+    content:content
+  }})
+
+  res.status(200).json({ success: true, data: article });
+});
