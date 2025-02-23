@@ -31,6 +31,8 @@ model Article {
   keywords String[]
 
   Author Author[]
+
+  createdAt DateTime? @updatedAt
 }
 
 model Image {
