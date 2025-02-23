@@ -16,7 +16,7 @@ categoriesRouter.get("/:slug", async (req, res) => {
   //     }
   // })
 
-  const category = prismaClient.category.findUnique({
+  const category = await prismaClient.category.findUnique({
     where: {
       slug: slug,
     },
