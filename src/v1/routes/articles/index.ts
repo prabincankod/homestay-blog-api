@@ -1,4 +1,4 @@
-import e, { Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import { CreateArticle } from "../../../dtos/CreateArticle";
 import { prismaClient } from "../../../../prisma/prisma";
 
@@ -31,7 +31,7 @@ articlesRouter.get("/:slug", async (req: Request, res: Response) => {
     where: {
       slug: slug,
     },
-    include: { ogImage: true }
+    include: { ogImage: true },
   });
 
   if (!article) {
@@ -41,7 +41,6 @@ articlesRouter.get("/:slug", async (req: Request, res: Response) => {
   res.status(200).json({ success: true, data: article });
 });
 
-
 articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
   const content = req.body.content;
   const slug = req.params.slug;
@@ -49,18 +48,21 @@ articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
     where: {
       slug: slug,
     },
-    include: { ogImage: true }
+    include: { ogImage: true },
   });
 
   if (!article) {
     res.status(404).json({ success: false, message: "not found" });
   }
 
-  await prismaClient.article.update({where:{
-    id: article?.id
-  }, data:{
-    content:content
-  }})
+  await prismaClient.article.update({
+    where: {
+      id: article?.id,
+    },
+    data: {
+      content: content,
+    },
+  });
 
   res.status(200).json({ success: true, data: article });
 });

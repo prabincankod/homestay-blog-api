@@ -14,6 +14,10 @@ homePageRouter.get("/", async (req: Request, res: Response) => {
     where: {
       isFeatured: true,
     },
+    include: {
+      image: true,
+    },
+    take: 4,
   });
 
   res.json({
