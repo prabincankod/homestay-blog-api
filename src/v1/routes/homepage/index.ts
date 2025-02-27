@@ -16,6 +16,15 @@ homePageRouter.get("/", async (req: Request, res: Response) => {
     },
     include: {
       image: true,
+      articles: {
+        include: {
+          _count: {
+            select:{
+              categories: true
+            }
+          },
+        },
+      },
     },
     take: 4,
   });
