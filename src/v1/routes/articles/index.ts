@@ -75,7 +75,11 @@ articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
 articlesRouter.get("/", async (req: Request, res: Response) => {
 
   try {
-    const posts = await prismaClient.article.findMany();
+    const posts = await prismaClient.article.findMany({
+      include: {
+        ogImage: true
+      }
+    });
     res.status(200).json({ success: true, data: posts })
 
 
