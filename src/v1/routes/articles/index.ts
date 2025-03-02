@@ -67,8 +67,8 @@ articlesRouter.get("/", async (req: Request, res: Response) => {
 
 
 articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
-  const content = req.body.content;
-  console.log(req.body)
+  const {content, title} = req.body;
+
   const slug = req.params.slug;
   const article = await prismaClient.article.findUnique({
     where: {
@@ -86,7 +86,8 @@ articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
       id: article?.id,
     },
     data: {
-      content: content,
+      content, 
+      title, 
     },
   });
 
