@@ -25,18 +25,6 @@ articlesRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-articlesRouter.get("/sitemap-index", async (req: Request, res: Response) => {
-
-  const allCategories = await prismaClient.category.findMany({
-    omit: {
-      description: true,
-      isFeatured: true, imageid: true,
-      name: true,
-
-    }
-  })
-  res.json({ success: true, data: allCategories })
-})
 
 articlesRouter.get("/:slug", async (req: Request, res: Response) => {
   const slug = req.params.slug;
