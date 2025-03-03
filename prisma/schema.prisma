@@ -43,6 +43,7 @@ model Image {
   Article Article[]
 
   Category Category[]
+  
 }
 
 model Category {
@@ -58,6 +59,9 @@ model Category {
   imageid Int?
 
   articles Article[]
+
+  
+  createdAt DateTime? @updatedAt
 }
 
 model Author {

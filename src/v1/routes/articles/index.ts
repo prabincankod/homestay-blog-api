@@ -25,6 +25,19 @@ articlesRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
+articlesRouter.get("/sitemap-index", async (req: Request, res: Response) => {
+
+  const allCategories = await prismaClient.category.findMany({
+    omit: {
+      description: true,
+      isFeatured: true, imageid: true,
+      name: true,
+
+    }
+  })
+  res.json({ success: true, data: allCategories })
+})
+
 articlesRouter.get("/:slug", async (req: Request, res: Response) => {
   const slug = req.params.slug;
   const article = await prismaClient.article.findUnique({
@@ -67,7 +80,7 @@ articlesRouter.get("/", async (req: Request, res: Response) => {
 
 
 articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
-  const {content, title} = req.body;
+  const { content, title } = req.body;
 
   const slug = req.params.slug;
   const article = await prismaClient.article.findUnique({
@@ -86,11 +99,13 @@ articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
       id: article?.id,
     },
     data: {
-      content, 
-      title, 
+      content,
+      title,
     },
   });
 
   res.status(200).json({ success: true, data: article });
 });
+
+
 
