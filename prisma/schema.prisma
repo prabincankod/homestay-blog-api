@@ -43,7 +43,6 @@ model Image {
   Article Article[]
 
   Category Category[]
-  
 }
 
 model Category {
@@ -60,7 +59,6 @@ model Category {
 
   articles Article[]
 
-  
   createdAt DateTime? @updatedAt
 }
 
@@ -70,6 +68,8 @@ model Author {
   name     String
   imageUrl String?
 
+  email    String? @unique
+  password String?
+
   articles Article[]
 }
-

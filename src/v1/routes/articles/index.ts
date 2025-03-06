@@ -25,7 +25,6 @@ articlesRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-
 articlesRouter.get("/:slug", async (req: Request, res: Response) => {
   const slug = req.params.slug;
   const article = await prismaClient.article.findUnique({
@@ -42,30 +41,20 @@ articlesRouter.get("/:slug", async (req: Request, res: Response) => {
   res.status(200).json({ success: true, data: article });
 });
 
-
-
-
-
 // gets all posts.
 articlesRouter.get("/", async (req: Request, res: Response) => {
-
   try {
     const posts = await prismaClient.article.findMany({
       include: {
-        ogImage: true
-      }
+        ogImage: true,
+      },
     });
-    res.status(200).json({ success: true, data: posts })
-
-
+    res.status(200).json({ success: true, data: posts });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "something went wrong" });
   }
 });
-
-
-
 
 articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
   const { content, title } = req.body;
@@ -94,6 +83,3 @@ articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
 
   res.status(200).json({ success: true, data: article });
 });
-
-
-
