@@ -4,6 +4,7 @@ import { prismaClient } from "../../../prisma/prisma";
 import bcrypt from "bcryptjs";
 
 import jwt from "jsonwebtoken";
+import { LoginUser } from "../../dtos/LoginUser";
 export const signUpController = async (req: Request, res: Response) => {
     const body = req.body;
     let parsed = await CreateUser.spa(body);
@@ -47,7 +48,7 @@ export const signUpController = async (req: Request, res: Response) => {
 export const loginController = async (req: Request, res: Response) => {
     const body = req.body;
 
-    const parsed = await CreateUser.spa(body);
+    const parsed = await LoginUser.spa(body);
 
     if (!parsed.success || !parsed.data) {
         return res
