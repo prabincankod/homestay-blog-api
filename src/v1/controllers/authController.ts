@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import { CreateUser } from "../../dtos/CreateUser";
 import { prismaClient } from "../../../prisma/prisma";
 import bcrypt from "bcryptjs";
-
 import jwt from "jsonwebtoken";
 import { LoginUser } from "../../dtos/LoginUser";
+
 export const signUpController = async (req: Request, res: Response) => {
     const body = req.body;
     let parsed = await CreateUser.spa(body);
@@ -68,11 +68,12 @@ export const loginController = async (req: Request, res: Response) => {
                 .json({ success: false, message: "user not found" });
         }
 
-        const passwordMatch = await bcrypt.compare(
-            userExists.password!,
-            parsed.data.password,
-        );
 
+
+        const passwordMatch = await bcrypt.compare(
+            parsed.data.password,
+            userExists.password??'',
+        );
         if (!passwordMatch) {
             return res
                 .status(401)
@@ -90,7 +91,7 @@ export const loginController = async (req: Request, res: Response) => {
         return res
             .status(200)
             .json({ success: true, data: { token: token, email: userExists.email } });
-            
+
     } catch (error) {
         return res
             .status(500)
