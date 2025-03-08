@@ -6,12 +6,19 @@ export const imagesRouter = Router();
 
 imagesRouter.post("/", async (req: Request, res: Response) => {
   const body = req.body;
-  let parsed = await CreateImage.safeParseAsync(body);
+  let parsed = await CreateImage.spa(body);
 
   if (!parsed.success) {
     res.status(400).send({ success: false, message: "Check the request body" });
     return;
   }
+
+  const articleMap = parsed.data.article?.map((data) => ({
+    id: data,
+  }));
+  const categoryMap = parsed.data.category?.map((data) => ({
+    id: data,
+  }));
 
   try {
     const newImage = await prismaClient.image.create({
@@ -19,14 +26,10 @@ imagesRouter.post("/", async (req: Request, res: Response) => {
         url: parsed.data.url,
         alt: parsed.data.alt,
         Article: {
-          connect: {
-            id: parsed.data.article,
-          },
+          connect: articleMap,
         },
         Category: {
-          connect: {
-            id: parsed.data.category,
-          },
+          connect: categoryMap,
         },
       },
     });
@@ -52,4 +55,10 @@ imagesRouter.get("/", async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: " something went wrong" });
     return;
   }
+});
+
+imagesRouter.patch("/:id", async(req: Request, res: Response)=>{
+
+  
+
 });
