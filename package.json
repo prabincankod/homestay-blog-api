@@ -2,7 +2,6 @@
   "name": "homestay-api",
   "version": "1.0.0",
   "description": "for The StartUp TM.",
-  "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "postinstall": "prisma generate",
