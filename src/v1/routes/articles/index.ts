@@ -15,7 +15,7 @@ articlesRouter.post("/", async (req: Request, res: Response) => {
   try {
     if (parsed.success && parsed.data) {
       await prismaClient.article.create({ data: parsed.data });
-      res
+   res
         .status(201)
         .json({ success: true, message: "article creation success" });
     }
@@ -57,7 +57,7 @@ articlesRouter.get("/", async (req: Request, res: Response) => {
 });
 
 articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
-  const { content, title } = req.body;
+  const { content, title, description, isFeatured, status } = req.body;
 
   const slug = req.params.slug;
   const article = await prismaClient.article.findUnique({
@@ -78,6 +78,9 @@ articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
     data: {
       content,
       title,
+      description,
+      isFeatured,
+      status
     },
   });
 
