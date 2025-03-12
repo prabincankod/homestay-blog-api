@@ -3,6 +3,12 @@ import { prismaClient } from "../../../../prisma/prisma";
 
 export const categoriesRouter = Router();
 
+categoriesRouter.get("/", async (req: Request, res: Response) => {
+  const allCategories = await prismaClient.category.findMany();
+
+  res.json({ success: true, data: allCategories });
+});
+
 categoriesRouter.get("/sitemap-index", async (req: Request, res: Response) => {
   const allCategories = await prismaClient.category.findMany({
     omit: {

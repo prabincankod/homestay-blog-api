@@ -57,8 +57,4 @@ imagesRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-imagesRouter.patch("/:id", async(req: Request, res: Response)=>{
-
-  
-
-});
+imagesRouter.patch("/:id", async (req: Request, res: Response) => {});
