@@ -11,10 +11,22 @@ articlesRouter.post("/", async (req: Request, res: Response) => {
   if (!parsed.success) {
     res.status(401).json({ success: false, message: "check the request body" });
   }
+  const categoryMap = parsed?.data?.categories?.map((category) => ({
+    id: category,
+  }));
 
   try {
     if (parsed.success && parsed.data) {
-      await prismaClient.article.create({ data: parsed.data });
+      await prismaClient.article.create({
+        data: {
+          slug: parsed.data.slug,
+          title: parsed.data.title,
+          keywords: parsed.data.keywords,
+          categories: {
+            connect: categoryMap,
+          },
+        },
+      });
       res
         .status(201)
         .json({ success: true, message: "article creation success" });
