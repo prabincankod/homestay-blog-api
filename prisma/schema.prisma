@@ -32,7 +32,7 @@ model Article {
 
   Author Author[]
 
-  language  String?
+  language  String? @default("en")
   createdAt DateTime? @updatedAt
 }
 
