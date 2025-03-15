@@ -32,6 +32,7 @@ model Article {
 
   Author Author[]
 
+  language  String?
   createdAt DateTime? @updatedAt
 }
 
