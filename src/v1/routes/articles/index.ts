@@ -69,7 +69,7 @@ articlesRouter.get("/", async (req: Request, res: Response) => {
 });
 
 articlesRouter.patch("/:slug", async (req: Request, res: Response) => {
-  const { content, title, description, isFeatured, status, keywords } =
+  const { content, title, description, isFeatured, status, keywords, language } =
     req.body;
 
   const slug = req.params.slug;
