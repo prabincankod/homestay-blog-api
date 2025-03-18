@@ -47,3 +47,4 @@ categoriesRouter.get("/:slug", async (req, res) => {
 
   res.json({ success: true, data: category });
 });
+``;
