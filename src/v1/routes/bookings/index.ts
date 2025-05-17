@@ -19,7 +19,7 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
 
 
     resend.emails.send({
-        from: 'Notif <email.homestaystories.com>',
+        from: 'Notif <notifs@email.homestaystories.com>',
         to: ['prabinsubedi2016@gmail.com'],
         subject: 'hello world',
         html: '<p>it works!</p>',
