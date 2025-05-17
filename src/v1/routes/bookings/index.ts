@@ -4,7 +4,7 @@ import { CreateBooking } from "../../../dtos/CreateBooking";
 import { prismaClient } from "../../../../prisma/prisma";
 
 export const bookingsRouter = Router();
-bookingsRouter.get("/", async (req: Request, res: Response) => {
+bookingsRouter.post("/", async (req: Request, res: Response) => {
     const body = req.body;
     const parsed = await CreateBooking.spa(body);
 
