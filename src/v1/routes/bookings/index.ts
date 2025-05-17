@@ -2,6 +2,9 @@ import { type Request, type Response, Router } from "express";
 
 import { CreateBooking } from "../../../dtos/CreateBooking";
 import { prismaClient } from "../../../../prisma/prisma";
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_KEY);
 
 export const bookingsRouter = Router();
 bookingsRouter.post("/", async (req: Request, res: Response) => {
@@ -11,6 +14,21 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
     if (!parsed.success) {
         res.status(401).json({ success: false, message: "check the request body" });
     }
+
+
+
+
+    resend.emails.send({
+        from: 'Notif <email.homestaystories.com>',
+        to: ['prabinsubedi2016@gmail.com'],
+        subject: 'hello world',
+        html: '<p>it works!</p>',
+    }).then((response) => {
+        console.log(response);
+    }).catch((error) => {
+        console.log(error);
+    });
+
 
     try {
         if (parsed.success && parsed.data) {
