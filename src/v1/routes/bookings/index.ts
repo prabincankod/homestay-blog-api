@@ -17,11 +17,6 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
     }
 
 
-
-
-
-
-
     try {
         if (parsed.success && parsed.data) {
 
