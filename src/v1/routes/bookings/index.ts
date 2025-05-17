@@ -17,6 +17,7 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
             await prismaClient.bookings.create({
                 data: {
                     identifier: parsed.data.identifier,
+                    packageIdentifier: parsed.data.packageIdentifier,
                     name: parsed.data.name,
                     email: parsed.data.email,
                     phone: parsed.data.phone,
@@ -24,6 +25,7 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
                     country: parsed.data.country,
                     totalPeople: parsed.data.totalPeople,
                     stayDuration: parsed.data.stayDuration,
+
                 },
 
             });

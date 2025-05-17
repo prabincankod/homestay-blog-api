@@ -78,7 +78,8 @@ model Author {
 model Bookings {
   id Int @id @default(autoincrement())
 
-  identifier String
+  identifier        String
+  packageIdentifier String?
 
   name    String
   email   String?
