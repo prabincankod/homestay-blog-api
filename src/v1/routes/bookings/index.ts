@@ -3,6 +3,7 @@ import { type Request, type Response, Router } from "express";
 import { CreateBooking } from "../../../dtos/CreateBooking";
 import { prismaClient } from "../../../../prisma/prisma";
 import { Resend } from 'resend';
+import { getNotifEmailText } from "../../../utils/notifEmail";
 
 const resend = new Resend(process.env.RESEND_KEY);
 
@@ -18,20 +19,22 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
 
 
 
-    resend.emails.send({
-        from: 'Notif <notifs@email.homestaystories.com>',
-        to: ['prabinsubedi2016@gmail.com'],
-        subject: 'hello world',
-        html: '<p>it works!</p>',
-    }).then((response) => {
-        console.log(response);
-    }).catch((error) => {
-        console.log(error);
-    });
+
 
 
     try {
         if (parsed.success && parsed.data) {
+
+            resend.emails.send({
+                from: 'HomestayNotif <notifs@email.homestaystories.com>',
+                to: ['prabinsubedi2016@gmail.com'],
+                subject: 'Guest Alert!',
+                html: getNotifEmailText(parsed.data)
+            }).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            });
             await prismaClient.bookings.create({
                 data: {
                     identifier: parsed.data.identifier,
@@ -59,4 +62,5 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
 
 
 });
+
 
