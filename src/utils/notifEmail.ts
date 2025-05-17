@@ -8,9 +8,6 @@ export const getNotifEmailText = (data: z.infer<typeof CreateBooking>) => {
       <title>HomestayNotif</title>
     </head>
     <body>
-
-
-    // booking created, this is a email that reaches the host of the homestay
       <h1>Booking created</h1>
       <p>Name: ${data.name}</p>
       <p>Email: ${data.email}</p>

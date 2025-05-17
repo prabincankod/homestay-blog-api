@@ -26,10 +26,11 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
                 subject: 'Guest Alert!',
                 html: getNotifEmailText(parsed.data)
             }).then((response) => {
-                console.log(response);
+                console.log('success', response);
             }).catch((error) => {
                 console.log(error);
             });
+            console.log('started recording');
             await prismaClient.bookings.create({
                 data: {
                     identifier: parsed.data.identifier,
@@ -45,6 +46,7 @@ bookingsRouter.post("/", async (req: Request, res: Response) => {
                 },
 
             });
+            console.log('stopped recording');
             res
                 .status(201)
                 .json({ success: true, message: "booking creation success" });
